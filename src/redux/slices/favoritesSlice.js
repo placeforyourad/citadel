@@ -26,6 +26,8 @@ const favoritesSlice = createSlice({
 
 export const { toggleFavorite } = favoritesSlice.actions;
 
+export const selectFavorites = (state) => state.favorites.items;
+
 export const selectIsFavorite = (state, characterId) =>
   state.favorites.items.some((character) => character.id === characterId);
 

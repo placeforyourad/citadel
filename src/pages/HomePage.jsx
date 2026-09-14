@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import CharacterFilters from '../components/CharacterFilters/CharacterFilters';
 import CharactersList from '../components/CharactersList/CharactersList';
 import Pagination from '../components/Pagination/Pagination';
@@ -8,11 +9,10 @@ import {
   fetchCharacters,
   selectCharactersState,
 } from '../redux/slices/charactersSlice';
-import styles from './HomePage.module.css';
 
 export default function HomePage() {
   const dispatch = useDispatch();
-  const { query, setFilters, setPage } = useCharactersQuery();
+  const { query, setPage } = useCharactersQuery();
   const { items, info, loading, error } = useSelector(selectCharactersState);
 
   useEffect(() => {
@@ -27,10 +27,15 @@ export default function HomePage() {
   const showPagination = !loading && !error && items.length > 0;
 
   return (
-    <main className={styles.page}>
-      <h1 className={styles.title}>Персонажи «Рика и Морти»</h1>
+    <main className="page">
+      <div className="page-header">
+        <h1 className="title">Персонажи «Рика и Морти»</h1>
+        <Link className="btn btn--soft" to="/favorites">
+          ⭐ Избранное
+        </Link>
+      </div>
 
-      <CharacterFilters filters={query} onChange={setFilters} />
+      <CharacterFilters />
 
       <CharactersList
         characters={items}

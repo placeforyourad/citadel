@@ -1,16 +1,85 @@
-# React + Vite
+# 📋 Техническое задание: Rick & Morty Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Стажёрский проект** · Стек: React · RTK · Redux-Saga · React-Router
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 1. 🎯 Цель проекта
 
-## React Compiler
+Разработать SPA-приложение для просмотра персонажей вселенной «Рик и Морти» с использованием API [rickandmortyapi.com](https://rickandmortyapi.com). Приложение должно демонстрировать навыки работы с React, Redux Toolkit, Redux-Saga, React-Router, а также с REST API.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 2. 🛠 Технологический стек
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Технология | Назначение |
+|---|---|
+| **React 18+** | UI-библиотека |
+| **Redux Toolkit** | Управление состоянием |
+| **Redux-Saga** | Побочные эффекты (сайд-эффекты) |
+| **React-Router v6** | Маршрутизация |
+| **Axios / fetch** | HTTP-клиент |
+| **CSS Modules / SCSS / styled-components** | Стилизация (на выбор) |
+
+> ❗ Запрещено использовать `redux-thunk` — только `redux-saga` для всех асинхронных операций.
+
+---
+
+## 3. 📄 Страницы и функционал
+
+### 3.1. 🏠 Главная страница
+
+**Отображение:**
+- Сетка карточек персонажей (grid, адаптивная: 1–5 колонок).
+- Каждая карточка содержит: **изображение**, **имя**, **статус** (с цветовым индикатором), **вид**, кнопку «⭐ В избранное / ✖ Убрать».
+
+
+**Поиск:**
+- Поле ввода для `name` с **debounce** (300–500 мс).
+- Селект для `status`
+- Селект/инпут для `species`.
+- При изменении фильтров — сброс пагинации на 1-ю страницу.
+
+**Пагинация:**
+- Кнопки «Назад / Вперёд» + отображение текущей страницы.
+- Скрытие кнопок при отсутствии возможности перехода
+- При смене страницы — скролл к началу списка.
+
+**Синхронизация с URL:**
+- Фильтры и страница хранятся в `query params` (`?page=2&name=rick&status=alive`).
+
+**Состояния UI:**
+- `loading` — скелетоны или спиннер.
+- `error` — сообщение + кнопка «Повторить».
+- `empty` — «Ничего не найдено».
+
+---
+
+### 3.2. 👤 Страница персонажа 
+
+**Отображение:**
+- Большое изображение персонажа.
+- Полная информация: имя, статус, вид, тип, пол, происхождение, локация, количество эпизодов.
+- Кнопка «⭐ В избранное / ✖ Убрать из избранного».
+- Кнопка «← Назад».
+
+**Поведение:**
+- Если персонаж не найден — редирект на `NotFoundPage`.
+- Данные загружаются по `id` из URL.
+
+---
+
+### 3.3. ⭐ Избранные (`/favorites`)
+
+**Отображение:**
+- Сетка карточек избранных персонажей.
+- Кнопка «✖ Убрать из избранного» на каждой карточке.
+- Клик по карточке — переход на страницу персонажа.
+
+**Состояние:**
+- Если список пуст — заглушка: *«У вас пока нет избранных персонажей»* + ссылка на главную.
+
+**Персистентность:**
+- Избранное сохраняется в `localStorage` и восстанавливается при перезагрузке.
+
+---

@@ -1,24 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   CHARACTER_SPECIES,
   CHARACTER_STATUS_LABELS,
   SEARCH_DEBOUNCE_MS,
 } from '../../constants/characters';
+import { useCharactersQuery } from '../../hooks/useCharactersQuery';
+import { debounce } from '../../utils/debounce';
 import styles from './CharacterFilters.module.css';
 
-export default function CharacterFilters({ filters, onChange }) {
-  const [name, setName] = useState(filters.name);
+export default function CharacterFilters() {
+  const { query, setFilters } = useCharactersQuery();
 
-  useEffect(() => {
-    setName(filters.name);
-  }, [filters.name]);
+  const [name, setName] = useState(query.name);
+  const pushName = useMemo(
+    () => debounce((value) => setFilters({ name: value }), SEARCH_DEBOUNCE_MS),
+    [setFilters],
+  );
 
-  useEffect(() => {
-    if (name === filters.name) return;
-
-    const timer = setTimeout(() => onChange({ name }), SEARCH_DEBOUNCE_MS);
-    return () => clearTimeout(timer);
-  }, [name, filters.name, onChange]);
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+    pushName(event.target.value);
+  };
 
   return (
     <div className={styles.filters}>
@@ -29,7 +31,7 @@ export default function CharacterFilters({ filters, onChange }) {
           type="search"
           value={name}
           placeholder="Поиск..."
-          onChange={(event) => setName(event.target.value)}
+          onChange={handleNameChange}
         />
       </label>
 
@@ -37,8 +39,8 @@ export default function CharacterFilters({ filters, onChange }) {
         <span className="label">Статус</span>
         <select
           className="control"
-          value={filters.status}
-          onChange={(event) => onChange({ status: event.target.value })}
+          value={query.status}
+          onChange={(event) => setFilters({ status: event.target.value })}
         >
           <option value="">Любой</option>
           {Object.entries(CHARACTER_STATUS_LABELS).map(([value, label]) => (
@@ -53,8 +55,8 @@ export default function CharacterFilters({ filters, onChange }) {
         <span className="label">Вид</span>
         <select
           className="control"
-          value={filters.species}
-          onChange={(event) => onChange({ species: event.target.value })}
+          value={query.species}
+          onChange={(event) => setFilters({ species: event.target.value })}
         >
           <option value="">Любой</option>
           {CHARACTER_SPECIES.map((species) => (

@@ -1,6 +1,5 @@
 import CharacterCard from '../CharacterCard/CharacterCard';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import styles from './CharactersList.module.css';
 
 export default function CharactersList({ characters, loading, error, onRetry }) {
   if (loading) return <div className="spinner" />;
@@ -14,7 +13,7 @@ export default function CharactersList({ characters, loading, error, onRetry }) 
   }
 
   return (
-    <div className={styles.grid}>
+    <div className="grid">
       {characters.map((character) => (
         <CharacterCard key={character.id} character={character} />
       ))}

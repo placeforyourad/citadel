@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import CharacterDetails from '../components/CharacterDetails/CharacterDetails';
 import { fetchCharacter, selectCharacterState } from '../redux/slices/characterSlice';
-import styles from './CharacterPage.module.css';
 
 export default function CharacterPage() {
   const { id } = useParams();
@@ -18,8 +17,8 @@ export default function CharacterPage() {
   if (notFound) return <Navigate to="/404" replace />;
 
   return (
-    <main className={styles.page}>
-      <button type="button" className={`btn ${styles.back}`} onClick={() => navigate(-1)}>
+    <main className="page page--narrow">
+      <button type="button" className="btn" onClick={() => navigate(-1)}>
         ← Назад
       </button>
 
