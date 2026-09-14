@@ -2,20 +2,18 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CharacterCard from '../components/CharacterCard/CharacterCard';
 import { selectFavorites } from '../redux/slices/favoritesSlice';
-import { useNavigate } from 'react-router-dom';
 
 export default function FavoritesPage() {
   const favorites = useSelector(selectFavorites);
-  const navigate = useNavigate();
 
   return (
     <main className="page">
       <div className="page-header">
         <h1 className="title">Избранные</h1>
 
-        <button type="button" className="btn" onClick={() => navigate(-1)}>
+        <Link type="button" className="btn" to="/">
           ← Назад
-        </button>
+        </Link>
       </div>
 
       {favorites.length === 0 ? (

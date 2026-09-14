@@ -25,7 +25,7 @@ export default function CharacterFilters() {
   return (
     <div className={styles.filters}>
       <label className="field">
-        <span className="label">Имя</span>
+        <span className="field-label">Имя</span>
         <input
           className="control"
           type="search"
@@ -36,7 +36,7 @@ export default function CharacterFilters() {
       </label>
 
       <label className="field">
-        <span className="label">Статус</span>
+        <span className="field-label">Статус</span>
         <select
           className="control"
           value={query.status}
@@ -52,7 +52,7 @@ export default function CharacterFilters() {
       </label>
 
       <label className="field">
-        <span className="label">Вид</span>
+        <span className="field-label">Вид</span>
         <select
           className="control"
           value={query.species}
