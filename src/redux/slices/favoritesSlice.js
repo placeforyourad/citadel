@@ -4,7 +4,6 @@ function loadFavorites() {
   try {
     return JSON.parse(localStorage.getItem('favorites')) ?? [];
   } catch {
-    // повреждённые или недоступные данные в localStorage — стартуем с пустого списка
     return [];
   }
 }

@@ -21,8 +21,6 @@ function* handleFetchCharacters() {
     yield put(fetchCharactersSuccess(data));
   } catch (err) {
     if (err.response?.status === 404) {
-      // API отдаёт 404, если по фильтрам нет ни одного персонажа —
-      // это пустой результат, а не ошибка загрузки
       yield put(fetchCharactersSuccess({ results: [], info: null }));
       return;
     }
