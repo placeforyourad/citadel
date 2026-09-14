@@ -1,10 +1,111 @@
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
+
+  --bg: #13161b;
+  --surface: #1c2027;
+  --surface-muted: #262b33;
+  --text: #e6e8eb;
+  --text-muted: #9aa3af;
+  --border: #303640;
+  --accent: #5bff69;
+  --accent-text: #0f1319;
+
+  --status-alive: #3fae48;
+  --status-dead: #e04f45;
+  --status-unknown: #8c94a0;
+
+  --radius: 12px;
+  --shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.control {
+  width: 100%;
+  padding: 9px 12px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.control:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.btn {
+  padding: 9px 16px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.btn:not(.btn--primary):hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn--soft {
+  background: var(--surface-muted);
+}
+
+.btn--block {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 14px;
+}
+
+.btn--primary {
+  color: var(--accent-text);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn--primary:hover {
+  border-color: var(--accent);
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
 }
 
 body {
   margin: 0;
   font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
 }
 
 #root {

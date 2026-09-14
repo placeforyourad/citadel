@@ -14,18 +14,19 @@ const favoritesSlice = createSlice({
   reducers: {
     toggleFavorite(state, action) {
       const character = action.payload;
-      const exists = state.items.some((c) => c.id === character.id);
-      if (exists) {
-        state.items = state.items.filter((c) => c.id !== character.id);
-      } else {
+      const index = state.items.findIndex((c) => c.id === character.id);
+
+      if (index === -1)
         state.items.push(character);
-      }
-    },
-    removeFavorite(state, action) {
-      state.items = state.items.filter((c) => c.id !== action.payload);
+      else
+        state.items.splice(index, 1);
     },
   },
 });
 
-export const { toggleFavorite, removeFavorite } = favoritesSlice.actions;
+export const { toggleFavorite } = favoritesSlice.actions;
+
+export const selectIsFavorite = (state, characterId) =>
+  state.favorites.items.some((character) => character.id === characterId);
+
 export default favoritesSlice.reducer;

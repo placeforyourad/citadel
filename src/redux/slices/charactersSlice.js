@@ -1,19 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  items: [],
+  info: null,
+  loading: false,
+  error: null,
+};
+
 const charactersSlice = createSlice({
   name: 'characters',
-  initialState: {
-    items: [],
-    info: null,
-    loading: false,
-    error: null,
-    filters: {
-      name: '',
-      status: '',
-      species: '',
-    },
-    page: 1,
-  },
+  initialState,
   reducers: {
     fetchCharacters(state) {
       state.loading = true;
@@ -28,23 +24,12 @@ const charactersSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    setFilter(state, action) {
-      const { name, value } = action.payload;
-      state.filters[name] = value;
-      state.page = 1;
-    },
-    setPage(state, action) {
-      state.page = action.payload;
-    },
   },
 });
 
-export const {
-  fetchCharacters,
-  fetchCharactersSuccess,
-  fetchCharactersFailure,
-  setFilter,
-  setPage,
-} = charactersSlice.actions;
+export const { fetchCharacters, fetchCharactersSuccess, fetchCharactersFailure } =
+  charactersSlice.actions;
+
+export const selectCharactersState = (state) => state.characters;
 
 export default charactersSlice.reducer;

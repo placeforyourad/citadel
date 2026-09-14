@@ -1,5 +1,5 @@
 import { select, takeEvery } from 'redux-saga/effects';
-import { toggleFavorite, removeFavorite } from '../slices/favoritesSlice';
+import { toggleFavorite } from '../slices/favoritesSlice';
 
 function* persistFavorites() {
   const items = yield select((state) => state.favorites.items);
@@ -11,5 +11,5 @@ function* persistFavorites() {
 }
 
 export default function* favoritesSaga() {
-  yield takeEvery([toggleFavorite.type, removeFavorite.type], persistFavorites);
+  yield takeEvery(toggleFavorite.type, persistFavorites);
 }

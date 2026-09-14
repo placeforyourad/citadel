@@ -1,27 +1,20 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
-import axios from 'axios';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { requestCharacters } from '../../api/charactersApi';
 import {
   fetchCharacters,
   fetchCharactersSuccess,
   fetchCharactersFailure,
 } from '../slices/charactersSlice';
 
-const API_BASE = 'https://rickandmortyapi.com/api/character';
+const EMPTY_RESULT = { results: [], info: null };
 
-function* handleFetchCharacters() {
+function* handleFetchCharacters(action) {
   try {
-    const { filters, page } = yield select((state) => state.characters);
-
-    const params = { page };
-    if (filters.name) params.name = filters.name;
-    if (filters.status) params.status = filters.status;
-    if (filters.species) params.species = filters.species;
-
-    const { data } = yield call(axios.get, API_BASE, { params });
+    const { data } = yield call(requestCharacters, action.payload);
     yield put(fetchCharactersSuccess(data));
   } catch (err) {
     if (err.response?.status === 404) {
-      yield put(fetchCharactersSuccess({ results: [], info: null }));
+      yield put(fetchCharactersSuccess(EMPTY_RESULT));
       return;
     }
     yield put(fetchCharactersFailure(err.message));

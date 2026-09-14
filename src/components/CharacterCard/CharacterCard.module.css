@@ -1,0 +1,52 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:hover .name,
+.link:focus-visible .name {
+  color: var(--accent);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: var(--surface-muted);
+  border-radius: calc(var(--radius) - 4px);
+}
+
+.name {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: auto;
+  font-size: 14px;
+}
+
+.species {
+  color: var(--text-muted);
+}
