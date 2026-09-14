@@ -4,7 +4,6 @@ const initialState = {
   item: null,
   loading: false,
   error: null,
-  notFound: false,
 };
 
 const characterSlice = createSlice({
@@ -14,7 +13,6 @@ const characterSlice = createSlice({
     fetchCharacter(state) {
       state.loading = true;
       state.error = null;
-      state.notFound = false;
     },
     fetchCharacterSuccess(state, action) {
       state.item = action.payload;
@@ -24,20 +22,11 @@ const characterSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    fetchCharacterNotFound(state) {
-      state.item = null;
-      state.notFound = true;
-      state.loading = false;
-    },
   },
 });
 
-export const {
-  fetchCharacter,
-  fetchCharacterSuccess,
-  fetchCharacterFailure,
-  fetchCharacterNotFound,
-} = characterSlice.actions;
+export const { fetchCharacter, fetchCharacterSuccess, fetchCharacterFailure } =
+  characterSlice.actions;
 
 export const selectCharacterState = (state) => state.character;
 

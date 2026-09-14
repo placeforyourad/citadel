@@ -1,10 +1,10 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { requestCharacter } from '../../api/charactersApi';
+import { router } from '../../router/router';
 import {
   fetchCharacter,
   fetchCharacterSuccess,
   fetchCharacterFailure,
-  fetchCharacterNotFound,
 } from '../slices/characterSlice';
 
 function* handleFetchCharacter(action) {
@@ -13,7 +13,7 @@ function* handleFetchCharacter(action) {
     yield put(fetchCharacterSuccess(data));
   } catch (err) {
     if (err.response?.status === 404) {
-      yield put(fetchCharacterNotFound());
+      yield call([router, router.navigate], '/404', { replace: true });
       return;
     }
     yield put(fetchCharacterFailure(err.message));
