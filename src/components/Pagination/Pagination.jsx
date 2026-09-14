@@ -1,6 +1,6 @@
 export default function Pagination({ page, info, onChange }) {
   return (
-    <nav>
+    <nav className="pagination">
       {info.prev && (
         <button type="button" className="btn" onClick={() => onChange(page - 1)}>
           ← Назад

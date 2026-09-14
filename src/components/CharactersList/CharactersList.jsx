@@ -1,22 +1,16 @@
 import CharacterCard from '../CharacterCard/CharacterCard';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import styles from './CharactersList.module.css';
 
 export default function CharactersList({ characters, loading, error, onRetry }) {
-  if (loading) return <div className={styles.spinner} />;
+  if (loading) return <div className="spinner" />;
 
   if (error) {
-    return (
-      <div className={styles.message}>
-        <p>Не удалось загрузить персонажей</p>
-        <button type="button" className={`btn btn--primary ${styles.retry}`} onClick={onRetry}>
-          Повторить
-        </button>
-      </div>
-    );
+    return <ErrorMessage text="Не удалось загрузить персонажей" onRetry={onRetry} />;
   }
 
   if (characters.length === 0) {
-    return <p className={styles.message}>Ничего не найдено</p>;
+    return <p className="message">Ничего не найдено</p>;
   }
 
   return (

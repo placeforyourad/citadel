@@ -1,3 +1,34 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import CharacterDetails from '../components/CharacterDetails/CharacterDetails';
+import { fetchCharacter, selectCharacterState } from '../redux/slices/characterSlice';
+import styles from './CharacterPage.module.css';
+
 export default function CharacterPage() {
-  return <h1>Страница персонажа</h1>;
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { item, loading, error, notFound } = useSelector(selectCharacterState);
+
+  useEffect(() => {
+    dispatch(fetchCharacter(id));
+  }, [dispatch, id]);
+
+  if (notFound) return <Navigate to="/404" replace />;
+
+  return (
+    <main className={styles.page}>
+      <button type="button" className={`btn ${styles.back}`} onClick={() => navigate(-1)}>
+        ← Назад
+      </button>
+
+      <CharacterDetails
+        character={item}
+        loading={loading}
+        error={error}
+        onRetry={() => dispatch(fetchCharacter(id))}
+      />
+    </main>
+  );
 }

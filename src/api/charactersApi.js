@@ -4,6 +4,10 @@ const apiClient = axios.create({
   baseURL: 'https://rickandmortyapi.com/api',
 });
 
+export function requestCharacter(id) {
+  return apiClient.get(`/character/${id}`);
+}
+
 export function requestCharacters({ name, status, species, page }) {
   return apiClient.get('/character', {
     params: {

@@ -4,6 +4,13 @@ export const CHARACTER_STATUS_LABELS = {
   unknown: 'Неизвестно',
 };
 
+export const CHARACTER_GENDER_LABELS = {
+  female: 'Женский',
+  male: 'Мужской',
+  genderless: 'Бесполый',
+  unknown: 'Неизвестно',
+};
+
 export const CHARACTER_SPECIES = [
   'Human',
   'Alien',
