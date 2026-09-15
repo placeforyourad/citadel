@@ -135,6 +135,26 @@
   gap: 20px;
 }
 
+.pagination__page {
+  min-width: 42px;
+  padding: 9px 10px;
+}
+
+.pagination__gap {
+  padding: 0 2px;
+  color: var(--text-muted);
+}
+
+.pagination__counter {
+  display: none;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.btn:disabled {
+  cursor: default;
+}
+
 .message {
   display: flex;
   flex-direction: column;
@@ -174,11 +194,14 @@
     flex-direction: column;
     align-items: flex-start;
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .btn {
-    transition: none;
+  .pagination__page,
+  .pagination__gap {
+    display: none;
+  }
+
+  .pagination__counter {
+    display: inline;
   }
 }
 
