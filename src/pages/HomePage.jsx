@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AsyncBoundary from '../components/AsyncBoundary/AsyncBoundary';
 import CharacterFilters from '../components/CharacterFilters/CharacterFilters';
 import CharactersList from '../components/CharactersList/CharactersList';
 import Pagination from '../components/Pagination/Pagination';
@@ -37,12 +38,15 @@ export default function HomePage() {
 
       <CharacterFilters />
 
-      <CharactersList
-        characters={items}
+      <AsyncBoundary
         loading={loading}
         error={error}
         onRetry={() => dispatch(fetchCharacters(query))}
-      />
+      >
+        <CharactersList
+          characters={items}
+        />
+      </AsyncBoundary>
 
       {showPagination && (
         <Pagination page={query.page} info={info} onChange={handlePageChange} />
