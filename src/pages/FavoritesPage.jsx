@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import CharacterCard from '../components/CharacterCard/CharacterCard';
+import { CharacterCard } from '../components';
 import { selectFavorites } from '../redux/slices/favoritesSlice';
 
 export default function FavoritesPage() {

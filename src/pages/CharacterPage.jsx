@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import AsyncBoundary from '../components/AsyncBoundary/AsyncBoundary';
-import CharacterDetails from '../components/CharacterDetails/CharacterDetails';
+import { AsyncBoundary, CharacterDetails } from '../components';
 import { fetchCharacter, selectCharacterState } from '../redux/slices/characterSlice';
 
 export default function CharacterPage() {
