@@ -1,6 +1,17 @@
 # 📋 Техническое задание: Rick & Morty Explorer
 
 **Стажёрский проект** · Стек: React · RTK · Redux-Saga · React-Router
+## Быстрый старт
+
+```bash
+# 1. Установить зависимости
+npm install
+
+# 2. Запустить
+npm run start
+
+# 3. Откройте http://localhost:5173/ в браузере
+```
 
 ---
 
