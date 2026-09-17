@@ -1,18 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsFavorite, toggleFavorite } from '../../redux/slices/favoritesSlice';
+import { isFavorite, toggleFavorite } from '../../redux/slices/favoritesSlice';
 
 export default function FavoriteButton({ character }) {
   const dispatch = useDispatch();
-  const isFavorite = useSelector((state) => selectIsFavorite(state, character.id));
+  const favorite = useSelector((state) => isFavorite(state, character.id));
 
   return (
     <button
       type="button"
-      className={`btn btn--block btn--soft${isFavorite ? ' btn--primary' : ''}`}
-      aria-pressed={isFavorite}
+      className={`btn btn--block btn--soft${favorite ? ' btn--primary' : ''}`}
+      aria-pressed={favorite}
       onClick={() => dispatch(toggleFavorite(character))}
     >
-      {isFavorite ? '✖ Убрать' : '⭐ В избранное'}
+      {favorite ? '✖ Убрать' : '⭐ В избранное'}
     </button>
   );
 }
