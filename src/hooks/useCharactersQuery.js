@@ -2,41 +2,32 @@ import { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DEFAULT_PAGE } from '../constants/characters';
 
-function parseQuery(params) {
-  const { name = '', status = '', species = '', page } = Object.fromEntries(params);
-  return { name, status, species, page: Number(page) || DEFAULT_PAGE };
-}
+function withPatch(prev, patch) {
+  const next = new URLSearchParams(prev);
 
-function buildSearchParams({ name, status, species, page }) {
-  const params = new URLSearchParams();
+  Object.entries(patch).forEach(([key, value]) => {
+    if (value) next.set(key, value);
+    else next.delete(key);
+  });
 
-  if (name) params.set('name', name);
-  if (status) params.set('status', status);
-  if (species) params.set('species', species);
-  if (page !== DEFAULT_PAGE) params.set('page', String(page));
-
-  return params;
+  return next;
 }
 
 export function useCharactersQuery() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const query = useMemo(() => parseQuery(searchParams), [searchParams]);
+  const query = useMemo(() => {
+    const { name = '', status = '', species = '', page } = Object.fromEntries(searchParams);
+    return { name, status, species, page: Number(page) || DEFAULT_PAGE };
+  }, [searchParams]);
 
   const setFilters = useCallback(
-    (patch) => {
-      setSearchParams(
-        (prev) => buildSearchParams({ ...parseQuery(prev), ...patch, page: DEFAULT_PAGE }),
-        { replace: true },
-      );
-    },
+    (patch) => setSearchParams((prev) => withPatch(prev, { ...patch, page: '' }), { replace: true }),
     [setSearchParams],
   );
 
   const setPage = useCallback(
-    (page) => {
-      setSearchParams((prev) => buildSearchParams({ ...parseQuery(prev), page }));
-    },
+    (page) => setSearchParams((prev) => withPatch(prev, { page: page === DEFAULT_PAGE ? '' : page })),
     [setSearchParams],
   );
 

@@ -1,13 +1,9 @@
 import { Fragment } from 'react';
 
 function getPages(current, total) {
-  const pages = new Set([1, total]);
-
-  for (let page = current - 1; page <= current + 1; page += 1) {
-    if (page >= 1 && page <= total) pages.add(page);
-  }
-
-  return [...pages].sort((a, b) => a - b);
+  let pages = new Set([1, current- 1, current, current+1, total]
+    .filter(p => p >= 1 && p <= total));
+  return Array.from(pages);
 }
 
 export default function Pagination({ page, info, onChange }) {

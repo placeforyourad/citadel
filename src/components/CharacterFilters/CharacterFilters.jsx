@@ -1,25 +1,19 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   CHARACTER_SPECIES,
   CHARACTER_STATUS_LABELS,
   SEARCH_DEBOUNCE_MS,
 } from '../../constants/characters';
 import { useCharactersQuery } from '../../hooks/useCharactersQuery';
+import { debounce } from '../../utils/debounce';
 import styles from './CharacterFilters.module.css';
 
 export default function CharacterFilters() {
   const { query, setFilters } = useCharactersQuery();
 
   const [name, setName] = useState(query.name);
-  const timerRef = useRef(null);
-
-  useEffect(() => () => clearTimeout(timerRef.current), []);
-
   const pushName = useCallback(
-    (value) => {
-      clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => setFilters({ name: value }), SEARCH_DEBOUNCE_MS);
-    },
+    debounce((value) => setFilters({ name: value }), SEARCH_DEBOUNCE_MS),
     [setFilters],
   );
 
@@ -29,7 +23,7 @@ export default function CharacterFilters() {
   };
 
   return (
-    <div className={styles.filters}>
+    <form className={styles.filters}>
       <label className="field">
         <span className="field-label">Имя</span>
         <input
@@ -72,6 +66,6 @@ export default function CharacterFilters() {
           ))}
         </select>
       </label>
-    </div>
+    </form>
   );
 }
